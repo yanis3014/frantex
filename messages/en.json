@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "Home",
+    "expertise": "Expertise",
+    "products": "Products",
+    "quality": "Quality",
+    "capacity": "Capacity",
+    "sustainability": "Sustainability",
+    "references": "References",
+    "careers": "Careers",
+    "blog": "News",
+    "contact": "Contact"
+  },
+  "home": {
+    "heroTitle": "Manufacture of swimwear & lingerie in Tunisia",
+    "heroSubtitle": "French management – Industrial quality, flexibility, controlled lead times",
+    "introTitle": "Your trusted partner for premium collections",
+    "introText": "For over 20 years, Frantex International Fashion has supported swimwear and lingerie brands in turning their collections into reality. Based in M’Saken (Tunisia) and led by a Franco‑Tunisian team, our factory offers an end‑to‑end service from design to shipping. We combine technical know‑how, industrial processes and flexibility to deliver reliable and bespoke production.",
+    "expertiseTitle": "Our know‑how",
+    "expertise": {
+      "item1": "Pattern making & prototyping – creation of patterns and prototype development",
+      "item2": "Cutting & shaping – digital cutting and preparation of knit and jersey pieces",
+      "item3": "Sewing & assembly – skilled operators with lines dedicated to swimwear and lingerie",
+      "item4": "Quality control & compliance – systematic inspections and chlorine/UV resistance tests",
+      "item5": "Packing & logistics – careful packing and shipping according to your incoterms"
+    },
+    "productsTitle": "Products & expertise",
+    "productsText": "We manufacture swimwear (bikinis, one‑pieces, boardshorts) and lingerie (bras, briefs, loungewear). Our preferred materials are knits and jerseys made of nylon, polyester, elastane and recycled fibres. Options: sublimation printing, laser cutting, bonded seams.",
+    "qualityTitle": "Quality & compliance",
+    "qualityText": "Our quality system is based on rigorous controls at every stage, batch traceability and regular audits. We perform tests for strength, colour fastness and resistance to elements to deliver reliable products.",
+    "capacityTitle": "Capacity & KPIs",
+    "capacityText": "200 employees • 6 production lines • Annual capacity ~300k pieces • MOQ from 300 pieces • Lead time 4–8 weeks • Incoterms FOB/CIF",
+    "sustainabilityTitle": "CSR & sustainability",
+    "sustainabilityText": "Social and environmental commitment: use of recycled fabrics, waste reduction, renewable energies, respectful working conditions. Oeko‑Tex certification in progress.",
+    "cta": "Let's discuss your project"
+  },
+  "footer": {
+    "address": "Route de Sousse GP1, M’Saken 4070, Sousse, Tunisia",
+    "phoneLabel": "Phone",
+    "phone": "+216 28 402 518 / +216 73 312 033 / +216 73 312 034",
+    "emailLabel": "Email",
+    "email": "reception_frantex@outlook.fr",
+    "rights": "© 2025 Frantex International Fashion. All rights reserved.",
+    "legal": "Legal notice",
+    "privacy": "Privacy policy",
+    "cookies": "Cookies"
+  }
+}

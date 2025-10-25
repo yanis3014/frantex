@@ -22,10 +22,6 @@ export default function LangLayout({ children, params }: LangLayoutProps) {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Origin banner emphasising production origin and management */}
-      <div className="bg-accent text-neutral-50 text-center text-xs py-1">
-        {content[locale].originBanner}
-      </div>
       <Header locale={locale} />
       <main className="flex-grow">{children}</main>
       <Footer locale={locale} />

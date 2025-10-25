@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { content, Locale } from '../lib/content';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { content, Locale } from "../lib/content";
 
 /**
  * Header component displaying the company logo, primary navigation and
@@ -16,11 +16,11 @@ export default function Header({ locale }: { locale: Locale }) {
   const pathname = usePathname();
   // Determine the current slug (remove leading / and locale segment)
   // Example: '/fr/produits' -> ['', 'fr', 'produits'] -> slug 'produits'
-  const segments = pathname.split('/').filter(Boolean);
-  const currentSlug = segments.slice(1).join('/') || '';
+  const segments = pathname.split("/").filter(Boolean);
+  const currentSlug = segments.slice(1).join("/") || "";
 
   // Build link for the other locale
-  const otherLocale: Locale = locale === 'fr' ? 'en' : 'fr';
+  const otherLocale: Locale = locale === "fr" ? "en" : "fr";
   const otherHref = `/${otherLocale}/${currentSlug}`;
 
   const navItems = content[locale].nav;
@@ -30,7 +30,8 @@ export default function Header({ locale }: { locale: Locale }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
         <div className="flex items-center space-x-4">
           {/* Logo placeholder */}
-          <Link href={`/${locale}`}
+          <Link
+            href={`/${locale}`}
             className="flex items-center text-white font-serif text-xl font-semibold"
             aria-label={content[locale].siteName}
           >

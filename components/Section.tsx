@@ -18,9 +18,7 @@ export default function Section({
           {title}
         </h2>
         {text && (
-          <p className="text-neutral-700 mb-6 whitespace-pre-line">
-            {text}
-          </p>
+          <p className="text-neutral-700 mb-6 whitespace-pre-line">{text}</p>
         )}
         {children}
       </div>

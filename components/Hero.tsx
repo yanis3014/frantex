@@ -1,46 +1,57 @@
-import Link from 'next/link';
-import { content, Locale } from '../lib/content';
+"use client";
+import Image from "next/image";
+import ScrollReveal from "../components/ScrollReveal";
+import { content, Locale } from "../lib/content"; // Importer
 
-/**
- * Hero component displaying a headline, subheadline and a call‑to‑action
- * button on top of a decorative background. The component uses
- * responsive Tailwind classes to adjust padding and typography
- * according to screen size. The background image is placed via
- * inline styles to avoid loading issues before Next.js processing.
- */
-export default function Hero({
-  locale,
-  headline,
-  subHeadline,
-}: {
-  locale: Locale;
-  headline: string;
-  subHeadline: string;
-}) {
-  const ctaText = content[locale].cta;
+// Accepter 'locale'
+export default function Hero({ locale }: { locale: Locale }) {
+  const c = content[locale].home; // Récupérer le contenu
+
   return (
-    <section
-      className="relative h-[60vh] md:h-[70vh] flex items-center justify-center text-center text-neutral-50"
-      style={{
-        backgroundImage: "url('/images/hero-pattern.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <div className="absolute inset-0 bg-primary-dark/60" aria-hidden="true"></div>
-      <div className="relative z-10 max-w-4xl px-4">
-        <h1 className="text-3xl md:text-5xl font-serif font-bold mb-4 text-white">
-          {headline}
-        </h1>
-        <p className="text-base md:text-lg font-medium mb-8">
-          {subHeadline}
-        </p>
-        <Link
-          href={`/${locale}/contact`}
-          className="inline-block bg-accent py-3 px-6 rounded-md text-white font-semibold hover:bg-accent-dark transition-colors"
-        >
-          {ctaText}
-        </Link>
+    <section className="relative isolate overflow-hidden min-h-[calc(100vh-4rem)] flex items-center">
+      <Image
+        src="/fond-hero-frantex.png" // (Assurez-vous que c'est le bon chemin)
+        alt="Arrière-plan Frantex"
+        layout="fill"
+        objectFit="cover"
+        className="-z-10"
+        priority
+      />
+
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-slate-950/40 -z-10"
+      />
+
+      <div className="relative px-4 grid md:grid-cols-1 gap-8 items-center">
+        <div className="max-w-xl">
+          <ScrollReveal delay={0.05}>
+            <h1 className="mt-4 text-4xl md:text-[3.5rem] font-extrabold leading-[1.02] text-white whitespace-nowrap">
+              {c.heroTitle}
+            </h1>
+          </ScrollReveal>
+          <ScrollReveal delay={0.12}>
+            {/* PARAGRAPHE 1 RECONSTRUIT AVEC STYLE */}
+            <p className="mt-4 text-lg md:text-xl text-slate-300 leading-relaxed">
+              {c.heroP1_part1}
+              {/* Le 'bleu' et 'un peu gros' que vous vouliez */}
+              <span className="font-semibold text-primary-light md:text-2xl">
+                {c.heroP1_highlight}
+              </span>
+              {c.heroP1_part2}
+            </p>
+
+            {/* PARAGRAPHE 2 RECONSTRUIT AVEC STYLE */}
+            <p className="mt-4 text-lg md:text-xl text-slate-300 leading-relaxed">
+              {c.heroP2_part1}
+              {/* Le 'accent-dark' et 'un peu gros' que vous vouliez */}
+              <span className="font-semibold text-accent-dark md:text-2xl">
+                {c.heroP2_highlight}
+              </span>
+              {c.heroP2_part2}
+            </p>
+          </ScrollReveal>
+        </div>
       </div>
     </section>
   );

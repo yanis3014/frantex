@@ -1,41 +1,26 @@
 import Hero from "../../components/Hero";
-import Section from "../../components/Section";
-import StatsBlock from "../../components/Stats";
-import { content, Locale } from "../../lib/content";
+// import ProductsSection from "../../components/ProductsSection"; // <-- Supprimé (ou commenté)
+import SavoirFaireSection from "../../components/SavoirFaireSection";
+import CtaSection from "../../components/CtaSection";
+import HomeSteps from "../../components/HomeSteps"; // Assurez-vous que cet import est là
+import { Locale } from "../../lib/content";
 
 interface PageProps {
-  params: { lang: string };
+  params: { lang: Locale };
 }
 
-// petit type-guard
-const isLocale = (x: string): x is Locale => x === "fr" || x === "en";
-
-export default function HomePage({ params }: PageProps) {
-  // fallback sûr
-  const locale: Locale = isLocale(params.lang) ? params.lang : "fr";
-
-  // on évite de réindexer content partout
-  const t = content[locale];
-  const homeContent = t.home;
+export default async function HomePage({ params }: PageProps) {
+  const locale = params.lang;
 
   return (
-    <>
-      <Hero
-        locale={locale}
-        headline={homeContent.heroHeadline}
-        subHeadline={homeContent.heroSubHeadline}
-      />
-      <Section
-        title={homeContent.sections[0].title}
-        text={homeContent.sections[0].text}
-      />
-
-      <StatsBlock stats={homeContent.stats} />
-
-      <Section
-        title={homeContent.sections[1].title}
-        text={homeContent.sections[1].text}
-      />
-    </>
+    // J'ai mis HomeSteps après Hero, mais vous pouvez le placer où vous préférez
+    <main className="relative bg-gradient-to-b from-slate-950 via-slate-950 to-slate-900 text-slate-50">
+      <Hero locale={locale} />
+      <HomeSteps locale={locale} />
+      {/* <ProductsSection locale={locale} /> */}{" "}
+      {/* <-- Ligne supprimée (ou commentée) */}
+      <SavoirFaireSection locale={locale} />
+      <CtaSection locale={locale} />
+    </main>
   );
 }

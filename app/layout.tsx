@@ -1,10 +1,10 @@
-import './globals.css';
-import type { ReactNode } from 'react';
+import "./globals.css";
+import type { ReactNode } from "react";
 
 export const metadata = {
-  title: 'Frantex International Fashion',
+  title: "Frantex International Fashion",
   description:
-    'Manufacture de maillots de bain & lingerie – Made in Tunisia / French management',
+    "Manufacture de maillots de bain & lingerie – Made in Tunisia / French management",
 };
 
 /**
@@ -14,11 +14,7 @@ export const metadata = {
  * French here. Nested layouts can provide further semantic
  * information such as lang attributes on child elements if needed.
  */
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="fr">
       <body>{children}</body>

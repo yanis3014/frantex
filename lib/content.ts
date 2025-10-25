@@ -3,29 +3,28 @@
  * Fashion website. The `content` object stores strings and simple
  * structures for both French (fr) and English (en) locales. Pages
  * can import and use these values to avoid hard‑coding text in
- * components. If additional pages are added, extend this file
- * accordingly. Keeping translations together makes future updates
- * easier and encourages consistency across the site.
+ * components.
  */
 
-export type Locale = 'fr' | 'en';
+export type Locale = "fr" | "en";
 
 export interface NavItem {
-  /**
-   * URL path segment without locale, e.g. 'savoir-faire'. When
-   * constructing links, prepend the current locale.
-   */
   slug: string;
-  /**
-   * Human readable title for navigation menus.
-   */
   title: string;
+}
+export interface HomeStep {
+  title: string;
+  desc: string;
+  videoSrc: string;
+}
+
+export interface HomeWhyPoint {
+  title: string;
+  desc: string;
 }
 
 export interface HomeSection {
-  /** heading for the section */
   title: string;
-  /** short descriptive paragraph */
   text: string;
 }
 
@@ -39,67 +38,64 @@ export interface FaqItem {
   answer: string;
 }
 
+// INTERFACE MISE À JOUR (avec les paragraphes 'hero' découpés)
 export interface SiteContent {
-  /** Title tag for the site */
   siteName: string;
-  /** Banner text emphasising the origin and management */
   originBanner: string;
-  /** Navigation menu items */
   nav: NavItem[];
-  /** Call to action text used in hero sections */
-  cta: string;
-  /** Home page content */
   home: {
-    heroHeadline: string;
-    heroSubHeadline: string;
-    sections: HomeSection[];
-    stats: Stats[];
+    heroTitle: string;
+    // heroP1 découpé en 3 parties
+    heroP1_part1: string;
+    heroP1_highlight: string;
+    heroP1_part2: string;
+    // heroP2 découpé en 3 parties
+    heroP2_part1: string;
+    heroP2_highlight: string;
+    heroP2_part2: string;
+    stepsTitle: string;
+    stepsSubtitle: string;
+    steps: HomeStep[];
+    whyTitle: string;
+    whySubtitle: string;
+    whyP1: string;
+    whyPoints: HomeWhyPoint[];
   };
-  /** Know‑how page */
+  cta: {
+    title: string;
+    subtitle: string;
+    btn1: string;
+    btn2: string;
+    btn1href: string;
+    btn2href: string;
+  };
   knowHow: {
     title: string;
+    intro: string;
     sections: HomeSection[];
   };
-  /** Products & expertise page */
   products: {
     title: string;
     intro: string;
     details: string;
     options: string;
   };
-  /** Quality & compliance */
   quality: {
     title: string;
-    description: string;
+    intro: string;
+    processTitle: string;
+    steps: { title: string; description: string }[];
+    commitmentsTitle: string;
+    commitments: { title: string; description: string }[];
   };
-  /** Industrial capacity */
   capacity: {
     title: string;
-    description: string;
-  };
-  /** Sustainability & CSR */
-  sustainability: {
-    title: string;
-    description: string;
-  };
-  /** References */
-  references: {
-    title: string;
-    description: string;
-  };
-  /** Careers */
-  careers: {
-    title: string;
     intro: string;
-    jobs: { title: string; description: string }[];
+    equipmentsTitle: string;
+    equipments: { title: string; description: string }[];
+    statsTitle: string;
+    stats: Stats[];
   };
-  /** Blog */
-  blog: {
-    title: string;
-    intro: string;
-    posts: { title: string; description: string; date: string }[];
-  };
-  /** Contact */
   contact: {
     title: string;
     intro: string;
@@ -119,410 +115,521 @@ export interface SiteContent {
       submit: string;
     };
   };
-  /** Legal */
   legal: {
     title: string;
     content: string;
   };
-  /** Frequently asked questions */
   faq: FaqItem[];
-};
+}
 
 export const content: Record<Locale, SiteContent> = {
   fr: {
-    siteName: 'Frantex International Fashion',
-    originBanner: 'Made in Tunisia – Management français',
+    siteName: "Frantex International Fashion",
+    originBanner: "Made in Tunisia – Management français",
     nav: [
-      { slug: '', title: 'Accueil' },
-      { slug: 'savoir-faire', title: 'Savoir‑faire' },
-      { slug: 'produits', title: 'Produits' },
-      { slug: 'qualite', title: 'Qualité' },
-      { slug: 'capacite', title: 'Capacité' },
-      { slug: 'rse', title: 'RSE & Durabilité' },
-      { slug: 'references', title: 'Références' },
-      { slug: 'carriere', title: 'Carrières' },
-      { slug: 'blog', title: 'Blog' },
-      { slug: 'contact', title: 'Contact' },
+      { slug: "", title: "Accueil" },
+      { slug: "savoir-faire", title: "Savoir‑faire" },
+      { slug: "produits", title: "Produits" },
+      { slug: "qualite", title: "Qualité" },
+      { slug: "capacite", title: "Capacité" },
+      { slug: "contact", title: "Contact" },
     ],
-    cta: 'Discutons de votre projet',
+    cta: {
+      title: "Besoin d’échantillons ou d’un devis ?",
+      subtitle:
+        "Parlez‑nous de votre projet : quantité, usages, contraintes. On vous oriente vers la meilleure matière, rapidement.",
+      btn1: "Contact commercial",
+      btn2: "Catalogue PDF",
+      btn1href: "mailto:reception_frantex@outlook.fr",
+      btn2href: "/fr/catalogue",
+    },
     home: {
-      heroHeadline:
-        'Manufacture de maillots de bain & lingerie en Tunisie',
-      heroSubHeadline:
-        'Frantex International Fashion conçoit et produit vos collections swimwear et lingerie depuis son usine à M\'Saken. Notre équipe franco‑tunisienne allie savoir‑faire textile, réactivité et rigueur pour répondre aux exigences des marques internationales. De la conception au conditionnement, confiez‑nous votre projet pour un accompagnement complet.',
-      sections: [
+      heroTitle: "Votre Marque, Notre Atelier",
+      // Paragraphe 1 découpé
+      heroP1_part1: "Plus qu'une manufacture. Un pont entre deux rives. ",
+      heroP1_highlight: "Frantex International Fashion",
+      heroP1_part2:
+        " sculpte la matière à M'Saken, en Tunisie, avec l'exigence du management français.",
+      // Paragraphe 2 découpé
+      heroP2_part1:
+        "Nous transformons vos concepts en collections complètes de swimwear et lingerie. En alliant la précision de nos méthodes à la flexibilité de notre production, nous devenons le prolongement de votre marque, garantissant ",
+      heroP2_highlight: "qualité, réactivité et un savoir-faire",
+      heroP2_part2: " qui fait la différence.",
+      stepsTitle: "Nos Etapes de Confection",
+      stepsSubtitle:
+        "Du modélisme à l’emballage : une maîtrise complète de la production textile.",
+      steps: [
         {
-          title: 'Savoir‑faire complet',
-          text: 'Modélisme & prototypage, coupe automatisée, confection, contrôle qualité, emballage et logistique : nous maîtrisons chaque étape de la création d\'un produit textile.',
+          title: "Stylisme",
+          desc: "Création des designs et définition des tendances pour vos collections.",
+          videoSrc: "/assets/videos/stylisme.mp4",
         },
         {
-          title: 'Produits sur mesure',
-          text: 'Maillots de bain une‑pièce, bikinis, lingerie : nous développons des modèles adaptés à vos cahiers des charges et à votre identité de marque.',
+          title: "Patronage",
+          desc: "Notre bureau d'études conçoit les patrons et les prototypes précis.",
+          videoSrc: "/assets/videos/patronage.mp4",
         },
         {
-          title: 'Qualité et flexibilité',
-          text: 'Processus de contrôle stricts, délais maîtrisés et adaptation aux petites comme aux grandes séries garantissent la réussite de vos projets.',
+          title: "Confection",
+          desc: "Nos lignes de production assemblent vos pièces avec une qualité rigoureuse.",
+          videoSrc: "/assets/videos/confection.mp4",
+        },
+        {
+          title: "Emballage",
+          desc: "Contrôle final, conditionnement et préparation pour l'expédition.",
+          videoSrc: "/assets/videos/emballage.mp4",
         },
       ],
-      stats: [
-        { label: 'Lignes de production', value: '6' },
-        { label: 'Collaborateurs', value: '200+' },
-        { label: 'Capacité mensuelle', value: '50 000 pièces' },
-        { label: 'Délais de production', value: '6–8 semaines' },
+      whyTitle: "Pourquoi choisir FRANTEX ?",
+      whySubtitle:
+        "Transparence, contrôle qualité, délais tenus. Des partenariats solides, des produits qui durent.",
+      whyP1:
+        "Notre engagement va au-delà de la simple confection. Nous sommes un partenaire stratégique qui comprend vos exigences et s'engage sur la qualité et la fiabilité à long terme.",
+      whyPoints: [
+        {
+          title: "Contrôle qualité multi-étapes",
+          desc: "De la réception du tissu au produit fini, chaque pièce est inspectÉE pour garantir une conformité totale.",
+        },
+        {
+          title: "Expédition rapide & fiable",
+          desc: "Notre logistique optimisée nous permet de tenir des délais courts et fiables vers l'international.",
+        },
+        {
+          title: "Réassort piloté",
+          desc: "Nous gérons vos productions et réassorts avec la même rigueur, assurant une continuité pour vos collections.",
+        },
+        {
+          title: "Démarche responsable",
+          desc: "Optimisation des coupes, recyclage des chutes et choix de matériaux durables pour réduire notre empreinte.",
+        },
+        {
+          title: "Fiches techniques claires",
+          desc: "Une documentation précise et un prototypage rigoureux pour une production sans surprise.",
+        },
       ],
     },
     knowHow: {
-      title: 'Notre savoir‑faire',
+      title: "Notre savoir‑faire",
+      intro:
+        "Forts de plus de 20 ans d'expérience, nous avons perfectionné un processus de fabrication qui allie l'artisanat traditionnel à la précision technologique. Notre savoir-faire couvre l'intégralité de la chaîne de production, du design à l'expédition.",
       sections: [
         {
-          title: 'Modélisme & prototypage',
-          text: 'Notre bureau d\'études vous accompagne dans la création : conception de modèles, patronage, gradation et prototypage rapide afin de valider les coupes et les montages.',
+          title: "Modélisme & prototypage",
+          text: "Notre bureau d'études vous accompagne dans la création : conception de modèles, patronage, gradation et prototypage rapide afin de valider les coupes et les montages.",
         },
         {
-          title: 'Coupe',
-          text: 'Notre salle de coupe est équipée de systèmes numériques pour optimiser la consommation matière et garantir une précision maximale.',
+          title: "Coupe",
+          text: "Notre salle de coupe est équipée de systèmes numériques pour optimiser la consommation matière et garantir une précision maximale.",
         },
         {
-          title: 'Confection',
-          text: 'Des ateliers dotés de surjeteuses, recouvreuses et autres machines spécialisées sont opérés par des couturières expérimentées pour un assemblage parfait.',
+          title: "Confection",
+          text: "Des ateliers dotés de surjeteuses, recouvreuses et autres machines spécialisées sont opérés par des couturières expérimentées pour un assemblage parfait.",
         },
         {
-          title: 'Contrôle qualité',
-          text: 'Contrôles en cours de production et en fin de chaîne pour assurer la conformité à vos cahiers des charges et une traçabilité complète.',
+          title: "Contrôle qualité",
+          text: "Contrôles en cours de production et en fin de chaîne pour assurer la conformité à vos cahiers des charges et une traçabilité complète.",
         },
         {
-          title: 'Emballage & logistique',
-          text: 'Conditionnement selon vos spécifications, étiquetage et expédition internationale sous incoterms EXW ou FOB.',
+          title: "Emballage & logistique",
+          text: "Conditionnement selon vos spécifications, étiquetage et expédition internationale sous incoterms EXW ou FOB.",
         },
       ],
     },
     products: {
-      title: 'Produits & expertises',
+      title: "Produits & expertises",
       intro:
-        'Nous confectionnons des maillots de bain une‑pièce, bikinis, boardshorts et tout type de lingerie pour femme et homme (soutiens‑gorge, culottes, brassières).',
+        "Nous confectionnons des maillots de bain une‑pièce, bikinis, boardshorts et tout type de lingerie pour femme et homme (soutiens‑gorge, culottes, brassières).",
       details:
-        'Notre expertise couvre la coupe‑cousu sur maille et jersey, l\'assemblage de matières complexes et l\'ajout d\'accessoires tels que bonnets, armatures, élastiques, imprimés et broderies.',
+        "Notre expertise couvre la coupe‑cousu sur maille et jersey, l'assemblage de matières complexes et l'ajout d'accessoires tels que bonnets, armatures, élastiques, imprimés et broderies.",
       options:
-        'Nous travaillons avec des tissus certifiés Oeko‑Tex®, y compris des matières recyclées. Les quantités minimales de commande débutent à 500 pièces par modèle et couleur. Le délai moyen est de 6 à 8 semaines après validation des prototypes.',
+        "Nous travaillons avec des tissus certifiés Oeko‑Tex®, y compris des matières recyclées. Les quantités minimales de commande débutent à 500 pièces par modèle et couleur. Le délai moyen est de 6 à 8 semaines après validation des prototypes.",
     },
     quality: {
-      title: 'Qualité & conformité',
-      description:
-        'La qualité est au cœur de notre organisation. Nous appliquons des contrôles rigoureux à chaque étape : inspection des tissus, contrôle process, contrôle final sur 100 % des pièces. Chaque production est tracée via un numéro de lot. Nous respectons les réglementations européennes (REACH) et les exigences des marques en matière de normes (AZO free, nickel free). Des audits réguliers par des organismes externes garantissent notre conformité sociale et environnementale.',
-    },
-    capacity: {
-      title: 'Capacité industrielle',
-      description:
-        'Notre usine de M\'Saken dispose de 6 lignes de production modulables et de 200 collaborateurs qualifiés. Équipements : logiciels CAO pour le patronage, machines de coupe automatique, 80 machines de couture spécialisées, presses et équipements de finition. Capacité mensuelle : jusqu’à 50 000 pièces, selon la complexité des modèles. Délais standard : prototypes en 3 semaines, production en 6 à 8 semaines. Incoterms proposés : EXW Tunisie, FOB Sousse.',
-    },
-    sustainability: {
-      title: 'RSE & durabilité',
-      description:
-        'Frantex International Fashion s\'engage pour une production responsable. Nous veillons au respect des droits des travailleurs (conditions de travail sûres, horaires conformes), favorisons la formation continue et l\'égalité des chances. Sur le plan environnemental, nous optimisons l\'utilisation des matières, recyclons les chutes de tissus et investissons dans des équipements moins énergivores. Nous développons des collections en matières recyclées pour réduire notre empreinte carbone.',
-    },
-    references: {
-      title: 'Références & études de cas',
-      description:
-        'Pour des raisons de confidentialité, nous ne pouvons pas afficher les marques avec lesquelles nous collaborons. Nous réalisons des projets sur mesure pour des marques européennes et internationales de maillots de bain et lingerie. Sur demande et sous NDA, nous pouvons vous présenter des références et études de cas démontrant notre savoir‑faire et notre flexibilité.',
-    },
-    careers: {
-      title: 'Carrières',
+      title: "Qualité & conformité",
       intro:
-        'Rejoignez une entreprise en pleine croissance ! Nous recherchons régulièrement des opérateurs de coupe, des couturières spécialisées, des contrôleurs qualité et des profils administratifs. Nous offrons une formation continue et un environnement de travail respectueux. Consultez nos offres d\'emploi ci‑dessous ou envoyez une candidature spontanée.',
-      jobs: [
+        "La qualité n'est pas une option, c'est notre standard. De l'inspection des tissus aux audits externes, nous avons mis en place un système rigoureux pour garantir que chaque pièce est conforme à vos exigences les plus strictes.",
+      processTitle: "Notre Processus de Contrôle en 3 Étapes",
+      steps: [
         {
-          title: 'Technicien(ne) modélisme',
+          title: "1. Inspection des Tissus",
           description:
-            'Responsable de la création de patrons et de la gradation, en lien avec le bureau d\'études et les clients.',
+            "Contrôle qualité systématique à la réception pour détecter tout défaut de matière ou de teinte avant la mise en production.",
         },
         {
-          title: 'Opérateur(trice) de coupe',
+          title: "2. Contrôle en Cours de Process",
           description:
-            'Prépare et découpe les tissus à l\'aide d\'équipements numériques, assure l\'optimisation de la matière.',
+            "Vérifications continues sur les lignes de production par nos équipes dédiées pour assurer un assemblage parfait.",
         },
         {
-          title: 'Couturier(ère) polyvalent(e)',
+          title: "3. Contrôle Final 100%",
           description:
-            'Assemble les pièces selon les instructions techniques, maîtrise plusieurs types de machines.',
+            "Chaque pièce est inspectée individuellement (coupes, coutures, mesures) avant l'emballage pour une qualité irréprochable.",
+        },
+      ],
+      commitmentsTitle: "Nos Engagements de Conformité",
+      commitments: [
+        {
+          title: "Traçabilité Complète",
+          description:
+            "Chaque production est tracée via un numéro de lot unique, permettant un suivi transparent et rigoureux de chaque étape.",
         },
         {
-          title: 'Contrôleur(se) qualité',
+          title: "Normes Européennes (REACH)",
           description:
-            'Vérifie la conformité des produits à chaque étape de la production et en fin de chaîne.',
+            "Nous respectons scrupuleusement les réglementations (REACH, AZO free, nickel free) pour des produits sûrs et conformes.",
+        },
+        {
+          title: "Audits Sociaux & Environnementaux",
+          description:
+            "Notre conformité est régulièrement validée par des organismes externes indépendants, garantissant nos engagements RSE.",
         },
       ],
     },
-    blog: {
-      title: 'Blog & actualités',
+    capacity: {
+      title: "Capacité industrielle",
       intro:
-        'Découvrez nos actualités : participation aux salons professionnels, innovations en matière de matériaux et de process, nouvelles certifications.',
-      posts: [
+        "Notre usine de M'Saken dispose de 6 lignes de production modulables et de 200 collaborateurs qualifiés, prête à s'adapter à vos volumes.",
+      equipmentsTitle: "Des Équipements de Pointe",
+      equipments: [
         {
-          title: 'Frantex au salon Interfilière Paris 2024',
-          description: 'Retour sur notre présence au rendez‑vous incontournable de la lingerie et du swimwear.',
-          date: '2024-01-15',
+          title: "Modélisme & CAO",
+          description:
+            "Logiciels CAO de dernière génération pour un patronage et une gradation d'une précision absolue.",
         },
         {
-          title: 'Nouveau parc machines de découpe automatisée',
-          description: 'Nous investissons dans des équipements de pointe pour améliorer la précision et réduire les délais.',
-          date: '2024-03-02',
+          title: "Coupe Automatisée",
+          description:
+            "Machines de coupe automatique pour optimiser la consommation de matière et garantir la régularité.",
         },
         {
-          title: 'Collection éco‑responsable en matières recyclées',
-          description: 'Zoom sur nos développements utilisant des tissus recyclés certifiés Oeko‑Tex®.',
-          date: '2024-05-20',
+          title: "Ateliers de Confection",
+          description:
+            "Plus de 80 machines de couture spécialisées (surjeteuses, recouvreuses, etc.) opérées par nos expertes.",
         },
+        {
+          title: "Finition & Conditionnement",
+          description:
+            "Presses, tables de contrôle et équipements de finition pour un produit final impeccable.",
+        },
+      ],
+      statsTitle: "La Production en Chiffres",
+      stats: [
+        { label: "Capacité mensuelle", value: "50 000 pièces" },
+        { label: "Délai prototypes", value: "3 semaines" },
+        { label: "Délai production", value: "6-8 semaines" },
+        { label: "Incoterms", value: "EXW / FOB" },
       ],
     },
     contact: {
-      title: 'Contact',
+      title: "Contact",
       intro:
-        'Pour toute demande de devis, d\'information ou de collaboration, n\'hésitez pas à nous contacter via le formulaire ci‑dessous ou aux coordonnées indiquées.',
-      address: 'Route de Sousse GP1\nM\'Saken 4070, Sousse, Tunisie',
-      phones: ['+216 28 402 518', '+216 73 312 033', '+216 73 312 034'],
-      email: 'reception_frantex@outlook.fr',
+        "Pour toute demande de devis, d'information ou de collaboration, n'hésitez pas à nous contacter via le formulaire ci‑dessous ou aux coordonnées indiquées.",
+      address: "Route de Sousse GP1\nM'Saken 4070, Sousse, Tunisie",
+      phones: ["+216 28 402 518", "+216 73 312 033", "+216 73 312 034"],
+      email: "reception_frantex@outlook.fr",
       form: {
-        name: 'Nom complet',
-        firstName: 'Prénom',
-        lastName: 'Nom de famille',
-        email: 'Email',
-        phone: 'Téléphone',
-        productType: 'Type de produit (maillot, lingerie…)',
-        quantity: 'Quantité estimée',
-        attachment: 'Fichier technique (PDF, facultatif)',
-        message: 'Votre message',
-        submit: 'Envoyer',
+        name: "Nom complet",
+        firstName: "Prénom",
+        lastName: "Nom de famille",
+        email: "Email",
+        phone: "Téléphone",
+        productType: "Type de produit (maillot, lingerie…)",
+        quantity: "Quantité estimée",
+        attachment: "Fichier technique (PDF, facultatif)",
+        message: "Votre message",
+        submit: "Envoyer",
       },
     },
     legal: {
-      title: 'Mentions légales',
+      title: "Mentions légales",
       content:
-        'Ce site est édité par Frantex International Fashion. Siège social : Route de Sousse GP1, M\'Saken 4070, Sousse, Tunisie. Directeur de la publication : Hedi Khedher. Hébergeur : Vercel. Pour plus d\'informations sur notre politique de confidentialité et la gestion des cookies, veuillez consulter les pages dédiées.',
+        "Ce site est édité par Frantex International Fashion. Siège social : Route de Sousse GP1, M'Saken 4070, Sousse, Tunisie. Directeur de la publication : Hedi Khedher. Hébergeur : Vercel. Pour plus d'informations sur notre politique de confidentialité et la gestion des cookies, veuillez consulter les pages dédiées.",
     },
     faq: [
       {
-        question: 'Quel est le minimum de commande (MOQ) ?',
-        answer: 'Les quantités minimales de commande commencent généralement à 500 pièces par modèle et par couleur. Selon la complexité du produit, ce seuil peut être ajusté.',
+        question: "Quel est le minimum de commande (MOQ) ?",
+        answer:
+          "Les quantités minimales de commande commencent généralement à 500 pièces par modèle et par couleur. Selon la complexité du produit, ce seuil peut être ajusté.",
       },
       {
-        question: 'Quels sont les délais de production ?',
-        answer: 'Après validation des prototypes, le délai moyen de production est de 6 à 8 semaines. Les échantillons sont généralement réalisés sous 3 semaines.',
+        question: "Quels sont les délais de production ?",
+        answer:
+          "Après validation des prototypes, le délai moyen de production est de 6 à 8 semaines. Les échantillons sont généralement réalisés sous 3 semaines.",
       },
       {
-        question: 'Proposez‑vous des échantillons ?',
-        answer: 'Oui, nous réalisons des prototypes et des échantillons afin de valider les matières, les coupes et les finitions avant le lancement de la production.',
+        question: "Proposez‑vous des échantillons ?",
+        answer:
+          "Oui, nous réalisons des prototypes et des échantillons afin de valider les matières, les coupes et les finitions avant le lancement de la production.",
       },
       {
-        question: 'Comment garantissez‑vous la confidentialité des projets ?',
-        answer: 'Nous travaillons régulièrement sous accords de non‑divulgation (NDA) et mettons en place des procédures internes strictes pour protéger vos informations et designs.',
+        question: "Comment garantissez‑vous la confidentialité des projets ?",
+        answer:
+          "Nous travaillons régulièrement sous accords de non‑divulgation (NDA) et mettons en place des procédures internes strictes pour protéger vos informations et designs.",
       },
       {
-        question: 'Quels incoterms proposez‑vous ?',
-        answer: 'Nous proposons principalement les incoterms EXW Tunisie et FOB Sousse. D\'autres modalités peuvent être étudiées sur demande.',
+        question: "Quels incoterms proposez‑vous ?",
+        answer:
+          "Nous proposons principalement les incoterms EXW Tunisie et FOB Sousse. D'autres modalités peuvent être étudiées sur demande.",
       },
       {
-        question: 'Livrez‑vous à l\'international ?',
-        answer: 'Oui, nous expédions nos productions à l\'international. Nos équipes logistiques vous accompagnent dans l\'organisation du transport et des formalités douanières.',
+        question: "Livrez‑vous à l'international ?",
+        answer:
+          "Oui, nous expédions nos productions à l'international. Nos équipes logistiques vous accompagnent dans l'organisation du transport et des formalités douanières.",
       },
     ],
   },
   en: {
-    siteName: 'Frantex International Fashion',
-    originBanner: 'Made in Tunisia – French management',
+    siteName: "Frantex International Fashion",
+    originBanner: "Made in Tunisia – French management",
     nav: [
-      { slug: '', title: 'Home' },
-      { slug: 'savoir-faire', title: 'Know‑how' },
-      { slug: 'produits', title: 'Products' },
-      { slug: 'qualite', title: 'Quality' },
-      { slug: 'capacite', title: 'Capacity' },
-      { slug: 'rse', title: 'CSR & Sustainability' },
-      { slug: 'references', title: 'References' },
-      { slug: 'carriere', title: 'Careers' },
-      { slug: 'blog', title: 'Blog' },
-      { slug: 'contact', title: 'Contact' },
+      { slug: "", title: "Home" },
+      { slug: "savoir-faire", title: "Know‑how" },
+      { slug: "produits", title: "Products" },
+      { slug: "qualite", title: "Quality" },
+      { slug: "capacite", title: "Capacity" },
+      { slug: "contact", title: "Contact" },
     ],
-    cta: 'Tell us about your project',
+    cta: {
+      title: "Need samples or a quote?",
+      subtitle:
+        "Tell us about your project: quantity, uses, constraints. We'll guide you to the best material, quickly.",
+      btn1: "Sales contact",
+      btn2: "PDF Catalogue",
+      btn1href: "mailto:reception_frantex@outlook.fr",
+      btn2href: "/en/catalogue",
+    },
     home: {
-      heroHeadline:
-        'Swimwear & lingerie manufacturing in Tunisia',
-      heroSubHeadline:
-        'Frantex International Fashion designs and manufactures your swimwear and lingerie collections from its factory in M\'Saken. Our Franco‑Tunisian team combines textile expertise, responsiveness and strict quality assurance to meet the requirements of international brands. From design to packing, trust us to provide end‑to‑end support for your project.',
-      sections: [
+      heroTitle: "Your Brand, Our Workshop",
+      // Paragraphe 1 découpé (EN)
+      heroP1_part1: "More than a factory. A bridge between two shores. ",
+      heroP1_highlight: "Frantex International Fashion",
+      heroP1_part2:
+        " crafts materials in M'Saken, Tunisia, with the rigor of French management.",
+      // Paragraphe 2 découpé (EN)
+      heroP2_part1:
+        "We transform your concepts into complete swimwear and lingerie collections. By blending precision methods with production flexibility, we become an extension of your brand, ensuring ",
+      heroP2_highlight: "quality, responsiveness, and game-changing expertise",
+      heroP2_part2: ".",
+      stepsTitle: "Our Manufacturing Steps",
+      stepsSubtitle:
+        "From design to packing: complete mastery of textile production.",
+      steps: [
         {
-          title: 'Complete know‑how',
-          text: 'Pattern making & prototyping, automated cutting, sewing & assembly, quality control, packing and logistics: we master every stage in creating a textile product.',
+          title: "Design",
+          desc: "Creating designs and defining trends for your collections.",
+          videoSrc: "/assets/videos/stylisme.mp4",
         },
         {
-          title: 'Tailored products',
-          text: 'One‑piece swimsuits, bikinis, lingerie: we develop styles tailored to your specifications and brand identity.',
+          title: "Pattern Making",
+          desc: "Our design office creates precise patterns and prototypes.",
+          videoSrc: "/assets/videos/patronage.mp4",
         },
         {
-          title: 'Quality and flexibility',
-          text: 'Strict control processes, controlled lead times and the ability to adapt to small or large series ensure the success of your projects.',
+          title: "Manufacturing",
+          desc: "Our production lines assemble your pieces with rigorous quality.",
+          videoSrc: "/assets/videos/confection.mp4",
+        },
+        {
+          title: "Packaging",
+          desc: "Final inspection, conditioning, and preparation for shipment.",
+          videoSrc: "/assets/videos/emballage.mp4",
         },
       ],
-      stats: [
-        { label: 'Production lines', value: '6' },
-        { label: 'Team members', value: '200+' },
-        { label: 'Monthly capacity', value: '50k pieces' },
-        { label: 'Lead times', value: '6–8 weeks' },
+      whyTitle: "Why Choose FRANTEX?",
+      whySubtitle:
+        "Transparency, quality control, reliable deadlines. Strong partnerships, products that last.",
+      whyP1:
+        "Our commitment goes beyond simple manufacturing. We are a strategic partner who understands your requirements and commits to long-term quality and reliability.",
+      whyPoints: [
+        {
+          title: "Multi-step quality control",
+          desc: "From fabric reception to the finished product, every piece is inspected to ensure full compliance.",
+        },
+        {
+          title: "Fast & reliable shipping",
+          desc: "Our optimized logistics allow us to maintain short and reliable international lead times.",
+        },
+        {
+          title: "Managed restocking",
+          desc: "We manage your production and reorders with the same rigor, ensuring continuity for your collections.",
+        },
+        {
+          title: "Responsible approach",
+          desc: "Optimizing cuts, recycling scraps, and choosing sustainable materials to reduce our footprint.",
+        },
+        {
+          title: "Clear technical files",
+          desc: "Precise documentation and rigorous prototyping for production without surprises.",
+        },
       ],
     },
     knowHow: {
-      title: 'Our know‑how',
+      title: "Our know‑how",
+      intro:
+        "With over 20 years of experience, we have perfected a manufacturing process that blends traditional craftsmanship with technological precision. Our expertise covers the entire production chain, from design to dispatch.",
       sections: [
         {
-          title: 'Design & prototyping',
-          text: 'Our design office supports your creation process: design, pattern making, grading and rapid prototyping to validate shapes and assemblies.',
+          title: "Design & prototyping",
+          text: "Our design office supports your creation process: design, pattern making, grading and rapid prototyping to validate shapes and assemblies.",
         },
         {
-          title: 'Cutting',
-          text: 'Our cutting room is equipped with digital systems to optimise fabric utilisation and ensure maximum precision.',
+          title: "Cutting",
+          text: "Our cutting room is equipped with digital systems to optimise fabric utilisation and ensure maximum precision.",
         },
         {
-          title: 'Sewing & assembly',
-          text: 'Workshops fitted with overlock, coverstitch and other specialised machines are operated by experienced seamstresses for perfect assembly.',
+          title: "Sewing & assembly",
+          text: "Workshops fitted with overlock, coverstitch and other specialised machines are operated by experienced seamstresses for perfect assembly.",
         },
         {
-          title: 'Quality control',
-          text: 'In‑line and final inspections guarantee compliance with your specifications and complete traceability.',
+          title: "Quality control",
+          text: "In‑line and final inspections guarantee compliance with your specifications and complete traceability.",
         },
         {
-          title: 'Packing & logistics',
-          text: 'Packing to your specifications, labelling and international shipping under EXW or FOB incoterms.',
+          title: "Packing & logistics",
+          text: "Packing to your specifications, labelling and international shipping under EXW or FOB incoterms.",
         },
       ],
     },
     products: {
-      title: 'Products & expertise',
+      title: "Products & expertise",
       intro:
-        'We manufacture one‑piece swimsuits, bikinis, boardshorts and all types of lingerie for women and men (bras, briefs, bralettes).',
+        "We manufacture one‑piece swimsuits, bikinis, boardshorts and all types of lingerie for women and men (bras, briefs, bralettes).",
       details:
-        'Our expertise covers cut‑and‑sew on knit and jersey, assembly of complex materials and the addition of accessories such as cups, underwires, elastics, prints and embroidery.',
+        "Our expertise covers cut‑and‑sew on knit and jersey, assembly of complex materials and the addition of accessories such as cups, underwires, elastics, prints and embroidery.",
       options:
-        'We use certified Oeko‑Tex® fabrics, including recycled materials. Minimum order quantities start from 500 pieces per style and colour. Average lead time is 6 to 8 weeks after sample approval.',
+        "We use certified Oeko‑Tex® fabrics, including recycled materials. Minimum order quantities start from 500 pieces per style and colour. Average lead time is 6 to 8 weeks after sample approval.",
     },
     quality: {
-      title: 'Quality & compliance',
-      description:
-        'Quality is at the heart of our organisation. We apply stringent controls at each stage: fabric inspection, in‑process control, final inspection on 100% of pieces. Each production is tracked via a batch number. We comply with European regulations (REACH) and the standards requested by our clients (AZO free, nickel free). Regular audits by external bodies ensure our social and environmental compliance.',
-    },
-    capacity: {
-      title: 'Industrial capacity',
-      description:
-        'Our factory in M\'Saken has 6 modular production lines and over 200 skilled employees. Equipment: CAD software for pattern making, automatic cutting machines, 80 specialised sewing machines, presses and finishing equipment. Monthly capacity: up to 50,000 pieces depending on model complexity. Standard lead times: prototypes in 3 weeks, production in 6 to 8 weeks. Offered incoterms: EXW Tunisia, FOB Sousse.',
-    },
-    sustainability: {
-      title: 'CSR & sustainability',
-      description:
-        'Frantex International Fashion is committed to responsible production. We ensure respect for workers’ rights (safe working conditions, compliant hours), promote continuous training and equal opportunities. Environmentally, we optimise material usage, recycle fabric offcuts and invest in energy‑efficient equipment. We develop collections using recycled materials to reduce our carbon footprint.',
-    },
-    references: {
-      title: 'References & case studies',
-      description:
-        'For confidentiality reasons we cannot display the brands we work with. We carry out bespoke projects for European and international swimwear and lingerie brands. On request and under NDA, we can present references and case studies demonstrating our know‑how and flexibility.',
-    },
-    careers: {
-      title: 'Careers',
+      title: "Quality & Compliance",
       intro:
-        'Join a growing company! We regularly recruit cutting operators, specialised seamstresses, quality controllers and administrative profiles. We offer continuous training and a respectful work environment. See our job offers below or send an open application.',
-      jobs: [
+        "Quality is not an option; it's our standard. From fabric inspection to external audits, we have implemented a rigorous system to ensure every piece meets your strictest requirements.",
+      processTitle: "Our 3-Step Quality Control Process",
+      steps: [
         {
-          title: 'Pattern technician',
+          title: "1. Fabric Inspection",
           description:
-            'Responsible for creating patterns and grading in collaboration with the design office and clients.',
+            "Systematic quality control upon reception to detect any material or color flaws before production begins.",
         },
         {
-          title: 'Cutting operator',
+          title: "2. In-Process Control",
           description:
-            'Prepares and cuts fabrics using digital equipment and ensures material optimisation.',
+            "Continuous checks on the production lines by our dedicated teams to ensure a perfect assembly.",
         },
         {
-          title: 'Multi‑skilled seamstress',
+          title: "3. 100% Final Inspection",
           description:
-            'Assembles pieces according to technical instructions and masters several types of machines.',
+            "Each finished piece is individually inspected (cuts, seams, measurements) before packing for flawless quality.",
+        },
+      ],
+      commitmentsTitle: "Our Compliance Commitments",
+      commitments: [
+        {
+          title: "Full Traceability",
+          description:
+            "Each production run is tracked via a unique batch number, allowing for transparent and rigorous monitoring of every step.",
         },
         {
-          title: 'Quality controller',
+          title: "European Standards (REACH)",
           description:
-            'Checks product conformity at each stage of production and on the final line.',
+            "We scrupulously comply with regulations (REACH, AZO free, nickel free) for safe and compliant products.",
+        },
+        {
+          title: "Social & Environmental Audits",
+          description:
+            "Our compliance is regularly validated by independent external bodies, guaranteeing our CSR commitments.",
         },
       ],
     },
-    blog: {
-      title: 'Blog & news',
+    capacity: {
+      title: "Industrial Capacity",
       intro:
-        'Discover our news: participation in trade shows, innovations in materials and processes, new certifications.',
-      posts: [
+        "Our factory in M'Saken has 6 modular production lines and 200 qualified employees, ready to adapt to your volumes.",
+      equipmentsTitle: "State-of-the-Art Equipment",
+      equipments: [
         {
-          title: 'Frantex at the Interfilière Paris 2024 trade show',
+          title: "Pattern Making & CAD",
           description:
-            'A recap of our presence at the must‑attend lingerie and swimwear event.',
-          date: '2024-01-15',
+            "Latest generation CAD software for pattern making and grading with absolute precision.",
         },
         {
-          title: 'New automated cutting equipment',
+          title: "Automated Cutting",
           description:
-            'We invest in state‑of‑the‑art equipment to improve precision and reduce lead times.',
-          date: '2024-03-02',
+            "Automatic cutting machines to optimize fabric consumption and ensure consistency.",
         },
         {
-          title: 'Eco‑friendly collection using recycled materials',
+          title: "Sewing Workshops",
           description:
-            'A closer look at our developments using Oeko‑Tex® certified recycled fabrics.',
-          date: '2024-05-20',
+            "Over 80 specialized sewing machines (overlock, coverstitch, etc.) operated by our experts.",
         },
+        {
+          title: "Finishing & Packing",
+          description:
+            "Presses, control tables, and finishing equipment for a flawless final product.",
+        },
+      ],
+      statsTitle: "Production by the Numbers",
+      stats: [
+        { label: "Monthly capacity", value: "50,000 pieces" },
+        { label: "Prototype lead time", value: "3 weeks" },
+        { label: "Production lead time", value: "6-8 weeks" },
+        { label: "Incoterms", value: "EXW / FOB" },
       ],
     },
     contact: {
-      title: 'Contact',
+      title: "Contact",
       intro:
-        'For any quotation, information or collaboration request, please contact us via the form below or using the details provided.',
-      address: 'Route de Sousse GP1\nM\'Saken 4070, Sousse, Tunisia',
-      phones: ['+216 28 402 518', '+216 73 312 033', '+216 73 312 034'],
-      email: 'reception_frantex@outlook.fr',
+        "For any quotation, information or collaboration request, please contact us via the form below or using the details provided.",
+      address: "Route de Sousse GP1\nM'Saken 4070, Sousse, Tunisia",
+      phones: ["+216 28 402 518", "+216 73 312 033", "+216 73 312 034"],
+      email: "reception_frantex@outlook.fr",
       form: {
-        name: 'Full name',
-        firstName: 'First name',
-        lastName: 'Last name',
-        email: 'Email',
-        phone: 'Phone number',
-        productType: 'Product type (swimwear, lingerie…)',
-        quantity: 'Estimated quantity',
-        attachment: 'Technical file (PDF, optional)',
-        message: 'Your message',
-        submit: 'Send',
+        name: "Full name",
+        firstName: "First name",
+        lastName: "Last name",
+        email: "Email",
+        phone: "Phone number",
+        productType: "Product type (swimwear, lingerie…)",
+        quantity: "Estimated quantity",
+        attachment: "Technical file (PDF, optional)",
+        message: "Your message",
+        submit: "Send",
       },
     },
     legal: {
-      title: 'Legal notice',
+      title: "Legal notice",
       content:
-        'This site is published by Frantex International Fashion. Registered office: Route de Sousse GP1, M\'Saken 4070, Sousse, Tunisia. Publication director: Hedi Khedher. Hosting: Vercel. For more information on our privacy policy and cookie management, please consult the dedicated pages.',
+        "This site is published by Frantex International Fashion. Registered office: Route de Sousse GP1, M'Saken 4070, Sousse, Tunisia. Publication director: Hedi Khedher. Hosting: Vercel. For more information on our privacy policy and cookie management, please consult the dedicated pages.",
     },
     faq: [
       {
-        question: 'What is the minimum order quantity (MOQ)?',
-        answer: 'Minimum order quantities generally start at 500 pieces per style and colour. Depending on product complexity, this threshold can be adjusted.',
+        question: "What is the minimum order quantity (MOQ)?",
+        answer:
+          "Minimum order quantities generally start at 500 pieces per style and colour. Depending on product complexity, this threshold can be adjusted.",
       },
       {
-        question: 'What are your lead times?',
-        answer: 'After sample approval, the average production lead time is 6 to 8 weeks. Samples are usually made within 3 weeks.',
+        question: "What are your lead times?",
+        answer:
+          "After sample approval, the average production lead time is 6 to 8 weeks. Samples are usually made within 3 weeks.",
       },
       {
-        question: 'Do you provide samples?',
-        answer: 'Yes, we make prototypes and samples to validate materials, shapes and finishes before launching production.',
+        question: "Do you provide samples?",
+        answer:
+          "Yes, we make prototypes and samples to validate materials, shapes and finishes before launching production.",
       },
       {
-        question: 'How do you ensure project confidentiality?',
-        answer: 'We regularly work under non‑disclosure agreements (NDA) and implement strict internal procedures to protect your information and designs.',
+        question: "How do you ensure project confidentiality?",
+        answer:
+          "We regularly work under non‑disclosure agreements (NDA) and implement strict internal procedures to protect your information and designs.",
       },
       {
-        question: 'Which incoterms do you offer?',
-        answer: 'We mainly offer EXW Tunisia and FOB Sousse. Other terms can be discussed on request.',
+        question: "Which incoterms do you offer?",
+        answer:
+          "We mainly offer EXW Tunisia and FOB Sousse. Other terms can be discussed on request.",
       },
       {
-        question: 'Do you deliver internationally?',
-        answer: 'Yes, we ship our production worldwide. Our logistics teams support you in organising transport and customs formalities.',
+        question: "Do you deliver internationally?",
+        answer:
+          "Yes, we ship our production worldwide. Our logistics teams support you in organising transport and customs formalities.",
       },
     ],
   },

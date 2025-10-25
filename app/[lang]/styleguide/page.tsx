@@ -1,67 +1,72 @@
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import Link from 'next/link';
+import Hero from '../../../components/Hero';
+import Section from '../../../components/Section';
+import StatsBlock from '../../../components/Stats';
+import JobList from '../../../components/JobList';
+import PostList from '../../../components/PostList';
+import FAQ from '../../../components/FAQ';
+import { content, Locale } from '../../../lib/content';
 
-export default function StyleguidePage({ params }: { params: { lang: string } }) {
-  const { lang } = params;
-  const isFr = lang === 'fr';
+interface PageProps {
+  params: { lang: Locale };
+}
+
+/**
+ * Styleguide page demonstrating the main reusable components and
+ * design tokens. Designers and developers can reference this page
+ * during development to ensure consistency across the site.
+ */
+export default function StyleguidePage({ params }: PageProps) {
+  const locale = params.lang;
+  const { home } = content[locale];
   return (
-    <>
-      <Navbar />
-      <main className="max-w-5xl mx-auto px-4 py-16 space-y-12">
-        <h1 className="text-4xl font-serif mb-6">{isFr ? 'Guide de style' : 'Style guide'}</h1>
-        <section>
-          <h2 className="text-2xl font-serif mb-4">{isFr ? 'Palette de couleurs' : 'Colour palette'}</h2>
-          <div className="grid grid-cols-3 gap-4 text-center">
-            <div className="p-4 rounded-md" style={{ backgroundColor: '#003f5c' }}>
-              <p className="text-white">#003f5c</p>
-              <p className="text-white text-sm">Primary dark</p>
+    <div>
+      <Section title="Styleguide">
+        <p className="text-neutral-600 mb-4">
+          {locale === 'fr'
+            ? 'Cette page présente les composants et styles utilisés sur le site.'
+            : 'This page showcases the components and styles used on the site.'}
+        </p>
+        <h3 className="font-serif text-xl text-primary mt-8 mb-2">Couleurs</h3>
+        <div className="flex flex-wrap gap-4">
+          {[
+            { name: 'primary', color: '#0A355C' },
+            { name: 'primary-light', color: '#264D73' },
+            { name: 'primary-dark', color: '#062042' },
+            { name: 'accent', color: '#C4312F' },
+            { name: 'accent-light', color: '#D94A4A' },
+            { name: 'accent-dark', color: '#842122' },
+          ].map(({ name, color }) => (
+            <div key={name} className="flex flex-col items-center">
+              <div
+                className="w-16 h-16 rounded-md"
+                style={{ backgroundColor: color }}
+              />
+              <span className="text-xs mt-1">{name}</span>
             </div>
-            <div className="p-4 rounded-md" style={{ backgroundColor: '#2f7ca7' }}>
-              <p className="text-white">#2f7ca7</p>
-              <p className="text-white text-sm">Primary light</p>
-            </div>
-            <div className="p-4 rounded-md" style={{ backgroundColor: '#e63946' }}>
-              <p className="text-white">#e63946</p>
-              <p className="text-white text-sm">Secondary</p>
-            </div>
-          </div>
-        </section>
-        <section>
-          <h2 className="text-2xl font-serif mb-4">{isFr ? 'Typographie' : 'Typography'}</h2>
-          <p className="font-serif text-3xl mb-2">Playfair Display</p>
-          <p className="font-sans text-xl">Inter</p>
-        </section>
-        <section>
-          <h2 className="text-2xl font-serif mb-4">Components</h2>
-          <div className="space-y-4">
-            <div>
-              <p className="mb-2 font-medium">Buttons</p>
-              <button className="bg-secondary text-white px-4 py-2 rounded-md mr-2">
-                {isFr ? 'Bouton primaire' : 'Primary button'}
-              </button>
-              <button className="bg-primary-dark text-white px-4 py-2 rounded-md">
-                {isFr ? 'Bouton secondaire' : 'Secondary button'}
-              </button>
-            </div>
-            <div>
-              <p className="mb-2 font-medium">Cards</p>
-              <div className="border rounded-md p-4 shadow-sm max-w-sm">
-                <h3 className="font-serif text-lg mb-2">{isFr ? 'Titre de la carte' : 'Card title'}</h3>
-                <p className="text-sm mb-2">
-                  {isFr
-                    ? 'Un petit texte descriptif pour illustrer la mise en page d’une carte.'
-                    : 'A short descriptive text to illustrate the card layout.'}
-                </p>
-                <Link href="#" className="text-secondary text-sm font-medium">
-                  {isFr ? 'En savoir plus' : 'Learn more'}
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </>
+          ))}
+        </div>
+        <h3 className="font-serif text-xl text-primary mt-8 mb-2">Typographie</h3>
+        <p className="font-serif text-2xl mb-2">Heading Serif 2xl</p>
+        <p className="font-sans text-lg mb-6">Body Sans lg</p>
+        <h3 className="font-serif text-xl text-primary mt-8 mb-2">Bouton</h3>
+        <button className="bg-accent text-white py-2 px-4 rounded-md hover:bg-accent-dark transition-colors">
+          {locale === 'fr' ? 'Bouton' : 'Button'}
+        </button>
+        <h3 className="font-serif text-xl text-primary mt-8 mb-2">Hero</h3>
+        <Hero
+          locale={locale}
+          headline={home.heroHeadline}
+          subHeadline={home.heroSubHeadline}
+        />
+        <h3 className="font-serif text-xl text-primary mt-8 mb-2">StatsBlock</h3>
+        <StatsBlock stats={home.stats} />
+        <h3 className="font-serif text-xl text-primary mt-8 mb-2">JobList</h3>
+        <JobList locale={locale} />
+        <h3 className="font-serif text-xl text-primary mt-8 mb-2">PostList</h3>
+        <PostList locale={locale} />
+        <h3 className="font-serif text-xl text-primary mt-8 mb-2">FAQ</h3>
+        <FAQ locale={locale} />
+      </Section>
+    </div>
   );
 }

@@ -1,18 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+/*
+ * Global stylesheet for the Frantex International Fashion website.
+ *
+ * We import the Inter and Playfair Display fonts from Google Fonts and
+ * enable Tailwind's preflight, component and utilities layers. A few
+ * sensible base styles are applied to ensure good readability and
+ * accessibility across the site. Feel free to extend this file with
+ * additional global rules as needed.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Custom global styles */
+/* Smooth scrolling for anchor links */
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  @apply font-sans text-neutral-dark bg-neutral-light;
+  @apply bg-neutral-50 text-neutral-800 font-sans antialiased;
+}
+
+/* Headings styling */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-serif text-primary-dark;
 }
 
 a {
-  @apply text-primary-dark hover:text-secondary transition-colors;
+  @apply text-primary hover:underline;
+}
+
+/* Accessible focus states */
+*:focus-visible {
+  outline: 2px solid theme('colors.accent.DEFAULT');
+  outline-offset: 2px;
 }

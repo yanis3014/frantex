@@ -1,20 +1,26 @@
-// Fichier : app/layout.tsx
-import "@/app/globals.css";
-import { ReactNode } from "react";
+import './globals.css';
+import type { ReactNode } from 'react';
 
 export const metadata = {
-  title: {
-    default: "Frantex International Fashion",
-    template: "%s – Frantex International Fashion",
-  },
+  title: 'Frantex International Fashion',
   description:
-    "Manufacture de maillots de bain et lingerie en Tunisie. Management français, qualité industrielle et délais maîtrisés.",
+    'Manufacture de maillots de bain & lingerie – Made in Tunisia / French management',
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
-  // Les balises <html> et <body> sont INDISPENSABLES ici
+/**
+ * Root layout for the Next.js app. It defines the global HTML
+ * structure and includes the global stylesheet. Since locale is
+ * handled in the nested [lang] layout, we set the default lang to
+ * French here. Nested layouts can provide further semantic
+ * information such as lang attributes on child elements if needed.
+ */
+export default function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
-    <html>
+    <html lang="fr">
       <body>{children}</body>
     </html>
   );

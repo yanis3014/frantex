@@ -1,8 +1,6 @@
 import Hero from "../../../components/Hero";
 import Section from "../../../components/Section";
 import StatsBlock from "../../../components/Stats";
-import JobList from "../../../components/JobList";
-import PostList from "../../../components/PostList";
 import FAQ from "../../../components/FAQ";
 import { content, Locale } from "../../../lib/content";
 
@@ -17,8 +15,8 @@ interface PageProps {
  */
 export default function StyleguidePage({ params }: PageProps) {
   const locale = params.lang;
-  // MODIFICATION 1: On accède au contenu 'capacity' qui contient maintenant les stats
-  const { home, capacity } = content[locale];
+  // On accède au contenu 'capacity' qui contient maintenant les stats
+  const { capacity } = content[locale];
 
   return (
     <div>
@@ -57,17 +55,13 @@ export default function StyleguidePage({ params }: PageProps) {
           {locale === "fr" ? "Bouton" : "Button"}
         </button>
         <h3 className="font-serif text-xl text-primary mt-8 mb-2">Hero</h3>
-        {/* Le composant Hero est maintenant appelé correctement */}
         <Hero locale={locale} />
         <h3 className="font-serif text-xl text-primary mt-8 mb-2">
           StatsBlock
         </h3>
-        {/* MODIFICATION 2: On passe capacity.stats à la place de home.stats */}
         <StatsBlock stats={capacity.stats} />
-        <h3 className="font-serif text-xl text-primary mt-8 mb-2">JobList</h3>
-        <JobList locale={locale} />
-        <h3 className="font-serif text-xl text-primary mt-8 mb-2">PostList</h3>
-        <PostList locale={locale} />
+        {/* L'appel à JobList a été supprimé ici */}
+        {/* L'appel à PostList a été supprimé ici */}
         <h3 className="font-serif text-xl text-primary mt-8 mb-2">FAQ</h3>
         <FAQ locale={locale} />
       </Section>

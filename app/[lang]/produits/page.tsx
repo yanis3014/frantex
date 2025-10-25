@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
 import Section from "../../../components/Section";
-import CtaSection from "../../../components/CtaSection"; // 1. Importer le CTA
+import CtaSection from "../../../components/CtaSection";
 import { content, Locale } from "../../../lib/content";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion"; // <-- MODIFICATION 1 : Ajout de Variants
 // 2. Importer les nouvelles icônes
 import {
   ScissorsIcon,
@@ -19,22 +19,26 @@ interface PageProps {
 }
 
 // Variant pour les images
-const imageVariant = {
+const imageVariant: Variants = {
+  // <-- MODIFICATION 2 : Typage en Variants
   hidden: { opacity: 0, scale: 0.9 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.6, ease: "easeOut" },
+    // MODIFICATION 3 : Remplacement de 'ease: "easeOut"' par une courbe de Bézier (standard pour easeOut)
+    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
   },
 };
 
 // Variant pour le texte
-const textVariant = {
+const textVariant: Variants = {
+  // <-- MODIFICATION 4 : Typage en Variants
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut", delay: 0.1 },
+    // MODIFICATION 5 : Remplacement de 'ease: "easeOut"'
+    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 },
   },
 };
 

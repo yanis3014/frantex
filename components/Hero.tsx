@@ -10,7 +10,7 @@ export default function Hero({ locale }: { locale: Locale }) {
   return (
     <section className="relative isolate overflow-hidden min-h-[calc(100vh-4rem)] flex items-center">
       <Image
-        src="/fond-hero-frantex.png" // (Assurez-vous que c'est le bon chemin)
+        src="/fond-hero-frantex.jpg" // (Assurez-vous que c'est le bon chemin)
         alt="Arrière-plan Frantex"
         layout="fill"
         objectFit="cover"

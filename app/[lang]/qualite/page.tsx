@@ -3,7 +3,7 @@ import Image from "next/image";
 import Section from "../../../components/Section";
 import FAQ from "../../../components/FAQ";
 import { content, Locale } from "../../../lib/content";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion"; // MODIFICATION 1: Ajout de 'Variants'
 import {
   ListBulletIcon,
   BeakerIcon,
@@ -23,7 +23,8 @@ const textVariant = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-const itemVariant = (delay: number) => ({
+// MODIFICATION 2: Typer explicitement la fonction pour retourner 'Variants'
+const itemVariant = (delay: number): Variants => ({
   hidden: { opacity: 0, scale: 0.9 },
   visible: {
     opacity: 1,
@@ -36,6 +37,7 @@ const itemVariant = (delay: number) => ({
  * Page Qualité & Conformité - Design amélioré
  */
 export default function QualitePage({ params }: PageProps) {
+  // ... (reste du code inchangé)
   const locale = params.lang;
   const quality = content[locale].quality;
   return (

@@ -4,6 +4,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { content, Locale } from "../lib/content";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 
 /**
  * Header component displaying the company logo, primary navigation and
@@ -38,6 +39,15 @@ export default function Header({ locale }: { locale: Locale }) {
             Frantex
           </Link>
         </div>
+
+        {/* NAVIGATION MOBILE (Ajoutée ici) */}
+        <nav className="md:hidden space-x-6" aria-label="Main navigation">
+          <button className="text-white p-2">
+            <Bars3Icon className="h-6 w-6" />
+          </button>
+        </nav>
+
+        {/* Navigation principale (reste cachée sur mobile) */}
         <nav className="hidden md:flex space-x-6" aria-label="Main navigation">
           {navItems.map((item) => (
             <Link
@@ -49,6 +59,7 @@ export default function Header({ locale }: { locale: Locale }) {
             </Link>
           ))}
         </nav>
+
         <div className="flex items-center space-x-4">
           <Link
             href={otherHref}

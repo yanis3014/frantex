@@ -3,7 +3,7 @@ import Image from "next/image";
 import Section from "../../../components/Section";
 import StatsBlock from "../../../components/Stats"; // Importer StatsBlock
 import { content, Locale } from "../../../lib/content";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion"; // MODIFICATION 1: Ajout de 'Variants'
 import {
   ComputerDesktopIcon,
   ScissorsIcon,
@@ -29,7 +29,8 @@ const textVariant = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-const itemVariant = (delay: number) => ({
+// MODIFICATION 2: Typer explicitement la fonction pour retourner 'Variants'
+const itemVariant = (delay: number): Variants => ({
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,

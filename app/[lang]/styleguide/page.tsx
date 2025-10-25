@@ -17,7 +17,9 @@ interface PageProps {
  */
 export default function StyleguidePage({ params }: PageProps) {
   const locale = params.lang;
-  const { home } = content[locale];
+  // MODIFICATION 1: On accède au contenu 'capacity' qui contient maintenant les stats
+  const { home, capacity } = content[locale];
+
   return (
     <div>
       <Section title="Styleguide">
@@ -55,11 +57,13 @@ export default function StyleguidePage({ params }: PageProps) {
           {locale === "fr" ? "Bouton" : "Button"}
         </button>
         <h3 className="font-serif text-xl text-primary mt-8 mb-2">Hero</h3>
+        {/* Le composant Hero est maintenant appelé correctement */}
         <Hero locale={locale} />
         <h3 className="font-serif text-xl text-primary mt-8 mb-2">
           StatsBlock
         </h3>
-        <StatsBlock stats={home.stats} />
+        {/* MODIFICATION 2: On passe capacity.stats à la place de home.stats */}
+        <StatsBlock stats={capacity.stats} />
         <h3 className="font-serif text-xl text-primary mt-8 mb-2">JobList</h3>
         <JobList locale={locale} />
         <h3 className="font-serif text-xl text-primary mt-8 mb-2">PostList</h3>

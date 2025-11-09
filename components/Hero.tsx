@@ -38,14 +38,6 @@ export default function Hero({ locale }: { locale: Locale }) {
               </span>
               {c.heroP1_part2}
             </p>
-
-            <p className="mt-4 text-lg md:text-xl text-slate-200 leading-relaxed max-w-prose">
-              {c.heroP2_part1}
-              <span className="font-semibold text-accent-dark md:text-2xl px-1">
-                {c.heroP2_highlight}
-              </span>
-              {c.heroP2_part2}
-            </p>
           </ScrollReveal>
         </div>
       </div>

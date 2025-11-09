@@ -14,7 +14,10 @@ export default function StatsBlock({ stats }: { stats: Stats[] }) {
           key={stat.label}
           className="text-center p-4 bg-neutral-100 rounded-lg shadow-sm"
         >
-          <p className="text-2xl font-bold text-primary">{stat.value}</p>
+          <p
+            className="text-2xl font-bold text-primary"
+            dangerouslySetInnerHTML={{ __html: stat.value }}
+          />
           <p className="text-sm text-neutral-600 mt-1">{stat.label}</p>
         </div>
       ))}

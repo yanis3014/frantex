@@ -1,4 +1,5 @@
 import ScrollReveal from "./ScrollReveal";
+import Link from "next/link";
 import { content, Locale } from "../lib/content";
 
 // Accepter 'locale'
@@ -16,19 +17,30 @@ export default function CtaSection({ locale }: { locale: Locale }) {
                 {c.title}
               </h3>
               <p className="mt-2 text-blue-800">{c.subtitle}</p>
-              <div className="mt-5 flex flex-wrap justify-center gap-3">
-                <a
-                  className="inline-flex items-center justify-center rounded-xl border border-blue-300 bg-blue-700/60 px-4 py-2 font-semibold hover:bg-blue-600/60 transition text-white"
-                  href={c.btn1href}
-                >
-                  {c.btn1}
-                </a>
-                <a
-                  className="inline-flex items-center justify-center rounded-xl border border-blue-300 bg-blue-700/60 px-4 py-2 font-semibold hover:bg-blue-600/60 transition text-white"
-                  href={c.btn2href}
-                >
-                  {c.btn2}
-                </a>
+              <div className="mt-6">
+                {locale === "fr" ? (
+                  <p className="text-sm text-blue-800">
+                    N'hésitez pas à nous contacter via notre{" "}
+                    <Link
+                      href={`/${locale}/contact`}
+                      className="text-blue-900 hover:underline"
+                    >
+                      formulaire de contact
+                    </Link>
+                    .
+                  </p>
+                ) : (
+                  <p className="text-sm text-blue-800">
+                    Please contact us via our{" "}
+                    <Link
+                      href={`/${locale}/contact`}
+                      className="text-blue-900 hover:underline"
+                    >
+                      contact form
+                    </Link>
+                    .
+                  </p>
+                )}
               </div>
             </div>
           </div>

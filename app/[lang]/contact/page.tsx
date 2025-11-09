@@ -1,40 +1,68 @@
-'use client';
-import { useState } from 'react';
-import Section from '../../../components/Section';
-import { content, Locale } from '../../../lib/content';
+"use client";
+import { useState } from "react"; // <-- 1. IMPORTER useState
+import Image from "next/image";
+import Section from "../../../components/Section";
+import { content, Locale } from "../../../lib/content";
+import { useForm, ValidationError } from "@formspree/react";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
 
 interface PageProps {
   params: { lang: Locale };
 }
 
-/**
- * Contact page including company contact details and a quotation
- * request form. The form demonstrates validation and uses a
- * honeypot field for spam prevention. No actual submission is
- * implemented.
- */
 export default function ContactPage({ params }: PageProps) {
   const locale = params.lang;
   const contact = content[locale].contact;
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    productType: '',
-    quantity: '',
-    attachment: null as File | null,
-    message: '',
-    honey: '',
-  });
+  // Ajustez cette valeur pour cadrer la carte sur le marqueur GPS (format CSS: "x% y%" ou "center top")
+  const mapObjectPosition = "50% 45%"; // Exemple: centré horizontalement, légèrement vers le haut
+  // Requête de recherche pour Google Maps (plus code + adresse)
+  const mapQuery = "PHVM+2XC, Bd Dr Taieb Hachicha, M'saken, Tunisie";
+  const [state, handleSubmit] = useForm("manawazk");
+
+  // --- 2. AJOUTER UN ÉTAT POUR LE SUJET ---
+  const [subject, setSubject] = useState("");
+
+  // Libellés (vous devriez les ajouter à lib/content.ts pour la traduction)
+  const labels = {
+    subject: locale === "fr" ? "Sujet de la demande" : "Inquiry Subject",
+    optionDefault:
+      locale === "fr" ? "--- Choisir un sujet ---" : "--- Select a subject ---",
+    optionQuote: locale === "fr" ? "Demande de devis" : "Request for quote",
+    optionGeneral: locale === "fr" ? "Question générale" : "General question",
+    optionOther:
+      locale === "fr"
+        ? "Autre (Suivi, Qualité...)"
+        : "Other (Tracking, Quality...)",
+  };
+
+  // Le message de succès est inchangé
+  if (state.succeeded) {
+    return (
+      <div>
+        <Section title={contact.title}>
+          <div className="flex flex-col items-center justify-center p-8 bg-green-50 rounded-lg border border-green-200 text-center">
+            <CheckCircleIcon className="w-16 h-16 text-green-500" />
+            <h3 className="mt-4 text-2xl font-serif font-semibold text-green-800">
+              Merci !
+            </h3>
+            <p className="mt-2 text-neutral-700">
+              Votre message a bien été envoyé. Nous vous répondrons rapidement.
+            </p>
+          </div>
+        </Section>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Section title={contact.title} text={contact.intro} />
+
       <div className="max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 pb-12">
-        {/* Left: Contact details */}
+        {/* --- COLONNE DE GAUCHE : INFOS CONTACT (Inchangée) --- */}
         <div>
           <h3 className="font-serif text-lg text-primary mb-2">
-            {locale === 'fr' ? 'Coordonnées' : 'Contact details'}
+            {locale === "fr" ? "Coordonnées" : "Contact details"}
           </h3>
           <p className="whitespace-pre-line text-sm text-neutral-700">
             {contact.address}
@@ -47,140 +75,218 @@ export default function ContactPage({ params }: PageProps) {
             ))}
           </p>
           <p className="mt-2 text-sm">
-            <a href={`mailto:${contact.email}`} className="text-primary hover:underline">
+            <a
+              href={`mailto:${contact.email}`}
+              className="text-primary hover:underline"
+            >
               {contact.email}
             </a>
           </p>
-          {/* Map placeholder */}
-          <div className="mt-6 border border-neutral-200 rounded-md bg-neutral-100 h-60 flex items-center justify-center text-neutral-500 text-sm">
-            {locale === 'fr' ? 'Carte Google Maps' : 'Google Map'}
+          {/* Carte statique : remplace le placeholder. */}
+          <div className="mt-6 rounded-md overflow-hidden border border-neutral-200 h-60 relative">
+            <Image
+              src="/maps-frantex.jpg"
+              alt={
+                locale === "fr"
+                  ? "Carte Frantex (M'Saken)"
+                  : "Frantex map (M'Saken)"
+              }
+              layout="fill"
+              objectFit="cover"
+              objectPosition={mapObjectPosition}
+              priority
+              className="block"
+            />
+            {/* Lien vers Google Maps - s'ouvre dans un nouvel onglet */}
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                mapQuery
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute right-2 bottom-2 bg-white/80 text-sm text-primary px-3 py-1 rounded-md shadow-sm hover:underline"
+            >
+              {locale === "fr"
+                ? "Ouvrir dans Google Maps"
+                : "Open in Google Maps"}
+            </a>
           </div>
         </div>
-        {/* Right: Form */}
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            alert('Form submitted!');
-          }}
-          className="space-y-4"
-        >
-          {/* Honeypot field for spam bots – hidden from users */}
-          <div style={{ display: 'none' }}>
-            <label>
-              Don’t fill this out
-              <input
-                type="text"
-                value={formData.honey}
-                onChange={(e) => setFormData({ ...formData, honey: e.target.value })}
-              />
-            </label>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-neutral-700">
-                {contact.form.firstName}
-              </label>
-              <input
-                type="text"
-                required
-                value={formData.firstName}
-                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2"
-              />
+
+        {/* --- COLONNE DE DROITE : FORMULAIRE DYNAMIQUE --- */}
+        <div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Prénom et Nom (Inchangé) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label
+                  htmlFor="firstName"
+                  className="block text-sm font-medium text-neutral-700"
+                >
+                  {contact.form.firstName}
+                </label>
+                <input
+                  id="firstName"
+                  type="text"
+                  name="firstName"
+                  required
+                  className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="lastName"
+                  className="block text-sm font-medium text-neutral-700"
+                >
+                  {contact.form.lastName}
+                </label>
+                <input
+                  id="lastName"
+                  type="text"
+                  name="lastName"
+                  required
+                  className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2"
+                />
+              </div>
             </div>
+
+            {/* Email (Inchangé) */}
             <div>
-              <label className="block text-sm font-medium text-neutral-700">
-                {contact.form.lastName}
-              </label>
-              <input
-                type="text"
-                required
-                value={formData.lastName}
-                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2"
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-neutral-700">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-neutral-700"
+              >
                 {contact.form.email}
               </label>
               <input
+                id="email"
                 type="email"
+                name="email"
                 required
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2"
               />
+              <ValidationError
+                prefix="Email"
+                field="email"
+                errors={state.errors}
+                className="text-red-600 text-sm mt-1"
+              />
             </div>
+
+            {/* Téléphone (Inchangé) */}
             <div>
-              <label className="block text-sm font-medium text-neutral-700">
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium text-neutral-700"
+              >
                 {contact.form.phone}
               </label>
               <input
+                id="phone"
                 type="tel"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                name="phone"
                 className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2"
               />
             </div>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-neutral-700">
-              {contact.form.productType}
-            </label>
-            <input
-              type="text"
-              value={formData.productType}
-              onChange={(e) => setFormData({ ...formData, productType: e.target.value })}
-              className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-neutral-700">
-              {contact.form.quantity}
-            </label>
-            <input
-              type="number"
-              min="0"
-              value={formData.quantity}
-              onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
-              className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-neutral-700">
-              {contact.form.attachment}
-            </label>
-            <input
-              type="file"
-              accept="application/pdf"
-              onChange={(e) => {
-                const file = e.target.files?.[0] || null;
-                setFormData({ ...formData, attachment: file });
-              }}
-              className="mt-1 w-full"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-neutral-700">
-              {contact.form.message}
-            </label>
-            <textarea
-              required
-              value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 h-28"
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-accent text-white py-3 px-6 rounded-md hover:bg-accent-dark transition-colors"
-          >
-            {contact.form.submit}
-          </button>
-        </form>
+
+            {/* --- 3. NOUVEAU CHAMP "SUJET" --- */}
+            <div>
+              <label
+                htmlFor="subject"
+                className="block text-sm font-medium text-neutral-700"
+              >
+                {labels.subject}
+              </label>
+              <select
+                id="subject"
+                name="_subject" // <--- L'ASTUCE FORMSPREE pour le "dispatch"
+                required
+                value={subject} // Lié à notre état
+                onChange={(e) => setSubject(e.target.value)} // Met à jour l'état
+                className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2"
+              >
+                <option value="" disabled>
+                  {labels.optionDefault}
+                </option>
+                <option value={labels.optionQuote}>{labels.optionQuote}</option>
+                <option value={labels.optionGeneral}>
+                  {labels.optionGeneral}
+                </option>
+                <option value={labels.optionOther}>{labels.optionOther}</option>
+              </select>
+            </div>
+
+            {/* --- 4. CHAMPS CONDITIONNELS --- */}
+            {/* Ces champs n'apparaissent que si le sujet est "Demande de devis" */}
+            {subject === labels.optionQuote && (
+              <>
+                {/* Type de produit */}
+                <div>
+                  <label
+                    htmlFor="productType"
+                    className="block text-sm font-medium text-neutral-700"
+                  >
+                    {contact.form.productType}
+                  </label>
+                  <input
+                    id="productType"
+                    type="text"
+                    name="productType"
+                    className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2"
+                  />
+                </div>
+
+                {/* Quantité */}
+                <div>
+                  <label
+                    htmlFor="quantity"
+                    className="block text-sm font-medium text-neutral-700"
+                  >
+                    {contact.form.quantity}
+                  </label>
+                  <input
+                    id="quantity"
+                    type="number"
+                    name="quantity"
+                    min="0"
+                    className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2"
+                  />
+                </div>
+              </>
+            )}
+
+            {/* Message (Inchangé) */}
+            <div>
+              <label
+                htmlFor="message"
+                className="block text-sm font-medium text-neutral-700"
+              >
+                {contact.form.message}
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 h-28"
+              />
+              <ValidationError
+                prefix="Message"
+                field="message"
+                errors={state.errors}
+                className="text-red-600 text-sm mt-1"
+              />
+            </div>
+
+            {/* Bouton d'envoi (Inchangé) */}
+            <button
+              type="submit"
+              disabled={state.submitting}
+              className="bg-accent text-white py-3 px-6 rounded-md hover:bg-accent-dark transition-colors disabled:opacity-50"
+            >
+              {state.submitting ? "Envoi en cours..." : contact.form.submit}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

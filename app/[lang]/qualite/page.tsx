@@ -49,7 +49,7 @@ export default function QualitePage({ params }: PageProps) {
       <div className="relative isolate overflow-hidden py-16 md:py-24">
         {/* Fond avec l'image de tissu floutée */}
         <Image
-          src="/tissus-frantex.jpg" // Assurez-vous que cette image est dans /public
+          src="/frantex-maillot.jpg" // Assurez-vous que cette image est dans /public
           alt="Tissus Frantex"
           layout="fill"
           objectFit="cover"
@@ -77,7 +77,7 @@ export default function QualitePage({ params }: PageProps) {
             {quality.steps.map((step, index) => (
               <motion.div
                 key={step.title}
-                className="relative z-10 flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-xl border border-neutral-200/70"
+                className="relative z-10 flex flex-col items-center text-center p-6 bg-white/80 backdrop-blur-sm rounded-xl shadow-xl border border-white/40"
                 variants={itemVariant(index * 0.1)}
                 initial="hidden"
                 whileInView="visible"
@@ -101,7 +101,7 @@ export default function QualitePage({ params }: PageProps) {
             return (
               <motion.div
                 key={item.title}
-                className="text-center p-6 bg-white rounded-lg shadow-lg border border-neutral-200/60"
+                className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg border border-white/40"
                 variants={itemVariant(index * 0.1)}
                 initial="hidden"
                 whileInView="visible"

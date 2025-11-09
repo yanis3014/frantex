@@ -150,11 +150,11 @@ export const content: Record<Locale, SiteContent> = {
       heroP1_highlight: "Frantex International Fashion",
       heroP1_part2:
         " sculpte la matière à M'Saken, en Tunisie, avec l'exigence du management français.",
-      // Paragraphe 2 découpé
+      /* // Paragraphe 2 découpé
       heroP2_part1:
         "Nous transformons vos concepts en collections complètes de swimwear et lingerie. En alliant la précision de nos méthodes à la flexibilité de notre production, nous devenons le prolongement de votre marque, garantissant ",
       heroP2_highlight: "qualité, réactivité et un savoir-faire",
-      heroP2_part2: " qui fait la différence.",
+      heroP2_part2: " qui fait la différence.", */
       stepsTitle: "Nos Etapes de Confection",
       stepsSubtitle:
         "Du modélisme à l’emballage : une maîtrise complète de la production textile.",
@@ -317,7 +317,10 @@ export const content: Record<Locale, SiteContent> = {
         { label: "Capacité mensuelle", value: "50 000 pièces" },
         { label: "Délai prototypes", value: "3 semaines" },
         { label: "Délai production", value: "6-8 semaines" },
-        { label: "Incoterms", value: "EXW / FOB" },
+        {
+          label: "Minimum de commande — tous modèles et toutes tailles inclus.",
+          value: "350 pièces",
+        },
       ],
     },
     contact: {
@@ -405,11 +408,11 @@ export const content: Record<Locale, SiteContent> = {
       heroP1_highlight: "Frantex International Fashion",
       heroP1_part2:
         " crafts materials in M'Saken, Tunisia, with the rigor of French management.",
-      // Paragraphe 2 découpé (EN)
+      /* // Paragraphe 2 découpé (EN)
       heroP2_part1:
         "We transform your concepts into complete swimwear and lingerie collections. By blending precision methods with production flexibility, we become an extension of your brand, ensuring ",
       heroP2_highlight: "quality, responsiveness, and game-changing expertise",
-      heroP2_part2: ".",
+      heroP2_part2: ".", */
       stepsTitle: "Our Manufacturing Steps",
       stepsSubtitle:
         "From design to packing: complete mastery of textile production.",
@@ -572,7 +575,10 @@ export const content: Record<Locale, SiteContent> = {
         { label: "Monthly capacity", value: "50,000 pieces" },
         { label: "Prototype lead time", value: "3 weeks" },
         { label: "Production lead time", value: "6-8 weeks" },
-        { label: "Incoterms", value: "EXW / FOB" },
+        {
+          label: "Minimum order — all models and sizes included.",
+          value: "350 pieces",
+        },
       ],
     },
     contact: {

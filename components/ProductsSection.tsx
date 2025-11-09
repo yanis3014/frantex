@@ -32,7 +32,10 @@ export default function ProductsSection({ locale }: { locale: Locale }) {
                     muted
                     autoPlay
                     playsInline
-                    className="h-56 w-full object-cover"
+                    // --- MODIFICATION ICI ---
+                    // Ajout de 'pointer-events-none' pour empêcher le clic
+                    className="h-56 w-full object-cover pointer-events-none"
+                    // ------------------------
                   >
                     Votre navigateur ne supporte pas la balise vidéo.
                   </video>

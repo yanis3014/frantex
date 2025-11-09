@@ -54,7 +54,7 @@ export default function CapacitePage({ params }: PageProps) {
       <div className="relative isolate overflow-hidden py-16 md:py-24">
         {/* Fond avec l'image de tissu floutée */}
         <Image
-          src="/tissus-frantex.jpg" // Assurez-vous que cette image est dans /public
+          src="/tissus2-frantex.jpg" // Assurez-vous que cette image est dans /public
           alt="Tissus Frantex"
           layout="fill"
           objectFit="cover"
